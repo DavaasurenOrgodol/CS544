@@ -22,6 +22,11 @@ public class Role implements Serializable {
     private String name;
     @Embedded
     AuditData auditData = new AuditData();
+
+    @ElementCollection(targetClass = AccountType.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "role_default_account_types", joinColumns = @JoinColumn(name = "role_id"))
+    Set<AccountType> defaultAccountTypes = new HashSet<>();
     public Role(String name) {
         this.name = name;
     }
