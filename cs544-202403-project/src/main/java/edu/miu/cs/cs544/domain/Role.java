@@ -22,7 +22,6 @@ public class Role implements Serializable {
     private String name;
     @Embedded
     AuditData auditData = new AuditData();
-
     public Role(String name) {
         this.name = name;
     }
