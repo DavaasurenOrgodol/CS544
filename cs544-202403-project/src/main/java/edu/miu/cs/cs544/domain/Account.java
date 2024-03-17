@@ -1,5 +1,6 @@
 package edu.miu.cs.cs544.domain;
 
+import edu.miu.common.domain.AuditData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,8 @@ public class Account implements Serializable {
     private String description;
     @Enumerated(EnumType.STRING)
     private AccountType type;
+    @Embedded
+    AuditData auditData = new AuditData();
 
     public Account(String name, String description, AccountType type) {
         this.name = name;

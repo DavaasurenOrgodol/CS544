@@ -1,5 +1,6 @@
 package edu.miu.cs.cs544.domain;
 
+import edu.miu.common.domain.AuditData;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -20,14 +21,14 @@ public class Member implements Serializable {
     @Id
     @GeneratedValue
     private long id;
-    @Column(nullable = false)
+    @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
-    @Column(nullable = false)
+    @Column(name = "LAST_NAME",nullable = false)
     private String lastName;
     @Column(nullable = false)
     @Email
     private String email;
-    @Column(nullable = false)
+    @Column(name = "BAR_CODE",nullable = false)
     @Lob
     private String barCode;
     @ManyToMany(fetch = FetchType.EAGER)
@@ -38,6 +39,8 @@ public class Member implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "member_id")
     private List<Account> accounts = new ArrayList<>();
+    @Embedded
+    AuditData auditData;
 
     public Member(String firstName, String lastName, String email, String barCode) {
         this.firstName = firstName;

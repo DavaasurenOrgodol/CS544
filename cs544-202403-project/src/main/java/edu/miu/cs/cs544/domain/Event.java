@@ -1,5 +1,6 @@
 package edu.miu.cs.cs544.domain;
 
+import edu.miu.common.domain.AuditData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,11 +24,12 @@ public class Event implements Serializable {
     private String name;
     @Column(nullable = false)
     private String description;
+    @Column(name = "ACCOUNT_TYPE")
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
-    @Column(nullable = false)
+    @Column(name = "START_DATE_TIME", nullable = false)
     private LocalDateTime startDateTime;
-    @Column(nullable = false)
+    @Column(name = "END_DATE_TIME",nullable = false)
     private LocalDateTime endDateTime;
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "evt_id")
@@ -37,6 +39,8 @@ public class Event implements Serializable {
     joinColumns = {@JoinColumn(name = "evt_id")},
     inverseJoinColumns = {@JoinColumn(name = "member_id")})
     private List<Member> participants = new ArrayList<>();
+    @Embedded
+    AuditData auditData = new AuditData();
 
     public Event(String name, String description, AccountType accountType, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         this.name = name;

@@ -1,9 +1,7 @@
 package edu.miu.cs.cs544.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import edu.miu.common.domain.AuditData;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +20,8 @@ public class Session {
     private LocalTime startTime;
     @Column(name = "end_time")
     private LocalTime endTime;
+    @Embedded
+    AuditData auditData = new AuditData();
 
     public Session(LocalTime startTime, LocalTime endTime) {
         this.startTime = startTime;
