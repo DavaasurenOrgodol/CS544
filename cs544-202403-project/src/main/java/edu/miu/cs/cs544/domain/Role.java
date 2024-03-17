@@ -19,7 +19,7 @@ public class Role implements Serializable {
     private long id;
     @Column(nullable = false)
     private String name;
-    
+
     public Role(String name) {
         this.name = name;
     }
