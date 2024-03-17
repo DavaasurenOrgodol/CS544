@@ -1,18 +1,17 @@
-package edu.miu.project.domain;
+package edu.miu.cs.cs544.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Location {
+public class Location implements Serializable {
     @Id
     @GeneratedValue
     private long id;

@@ -1,10 +1,11 @@
-package edu.miu.project.domain;
+package edu.miu.cs.cs544.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Event {
+public class Event implements Serializable {
     @Id
     @GeneratedValue
     private long id;

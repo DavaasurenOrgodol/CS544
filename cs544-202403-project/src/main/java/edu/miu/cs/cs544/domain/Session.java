@@ -1,4 +1,4 @@
-package edu.miu.project.domain;
+package edu.miu.cs.cs544.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

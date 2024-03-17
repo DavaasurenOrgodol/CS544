@@ -1,15 +1,17 @@
-package edu.miu.project.domain;
+package edu.miu.cs.cs544.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Account {
+public class Account implements Serializable {
     @Id
     @GeneratedValue
     private long id;
