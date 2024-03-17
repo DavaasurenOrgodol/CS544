@@ -19,13 +19,8 @@ public class Role implements Serializable {
     private long id;
     @Column(nullable = false)
     private String name;
-    @ManyToOne
-    private Set<Account> accounts = new HashSet<>();
-
+    
     public Role(String name) {
         this.name = name;
-    }
-    public void addAccount(Account account){
-        accounts.add(account);
     }
 }
