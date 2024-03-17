@@ -1,5 +1,6 @@
 package edu.miu.cs.cs544.domain;
 
+import edu.miu.common.domain.AuditData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +20,8 @@ public class Role implements Serializable {
     private long id;
     @Column(nullable = false)
     private String name;
-
+    @Embedded
+    AuditData auditData = new AuditData();
     public Role(String name) {
         this.name = name;
     }

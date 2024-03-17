@@ -1,8 +1,7 @@
 package edu.miu.cs.cs544.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import edu.miu.common.domain.AuditData;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,8 +17,16 @@ public class Attendance implements Serializable {
     @Id
     @GeneratedValue
     private long id;
-    private long member_id;
-    private long event_id;
-    private long account_id;
-    private LocalDateTime date;
+    @Column(name = "member_id")
+    private long memberId;
+    @Column(name = "event_id")
+    private long eventId;
+    @Column(name = "session_id")
+    private long sessionId;
+    @Column(name = "account_id")
+    private long accountId;
+    @Column(name = "is_present")
+    private boolean isPresent;
+    @Embedded
+    AuditData auditData = new AuditData();
 }

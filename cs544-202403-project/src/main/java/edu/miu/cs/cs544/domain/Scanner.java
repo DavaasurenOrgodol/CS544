@@ -1,5 +1,6 @@
 package edu.miu.cs.cs544.domain;
 
+import edu.miu.common.domain.AuditData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,11 +20,14 @@ public class Scanner implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "location_id")
     private Location location;
+    @Column(name = "ACCOUNT_TYPE")
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "evt_id")
     private Event event;
+    @Embedded
+    AuditData auditData = new AuditData();
 
     public Scanner(Location location, AccountType accountType, Event event) {
         this.location = location;
