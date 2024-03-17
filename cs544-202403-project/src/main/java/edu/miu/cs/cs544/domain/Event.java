@@ -31,6 +31,7 @@ public class Event implements Serializable {
     private LocalDateTime startDateTime;
     @Column(name = "END_DATE_TIME",nullable = false)
     private LocalDateTime endDateTime;
+
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "evt_id")
     private Collection<Session> schedule = new ArrayList<>();
