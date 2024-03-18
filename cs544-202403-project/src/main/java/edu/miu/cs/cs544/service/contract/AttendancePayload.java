@@ -8,12 +8,24 @@ import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+
 @Data
 public class AttendancePayload implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long id;
     private Member member;
     private Scanner scanner;
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    private LocalDateTime dateTime;
 
     public Member getMember() {
         return member;
