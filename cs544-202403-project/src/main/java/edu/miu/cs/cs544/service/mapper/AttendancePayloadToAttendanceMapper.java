@@ -2,9 +2,6 @@ package edu.miu.cs.cs544.service.mapper;
 
 import edu.miu.common.service.mapper.BaseMapper;
 import edu.miu.cs.cs544.domain.Attendance;
-import edu.miu.cs.cs544.domain.Event;
-import edu.miu.cs.cs544.service.contract.AttendancePayload;
-import edu.miu.cs.cs544.service.contract.EventPayload;
 import ma.glasnost.orika.MapperFactory;
 import org.springframework.stereotype.Component;
 
@@ -14,5 +11,4 @@ public class AttendancePayloadToAttendanceMapper extends BaseMapper<AttendancePa
     public AttendancePayloadToAttendanceMapper(MapperFactory mapperFactory) {
         super(mapperFactory, AttendancePayload.class, Attendance.class);
     }
-
 }
