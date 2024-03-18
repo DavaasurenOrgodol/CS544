@@ -12,8 +12,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class LocationPayload implements Serializable {
     private static final long serialVersionUID = 1L;
+    private long id;
     private String name;
     private String description;
     private LocationType type;
-
 }
