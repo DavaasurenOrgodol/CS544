@@ -15,18 +15,30 @@ import java.time.LocalDateTime;
 @Data
 public class Attendance implements Serializable {
     @Id
-    @GeneratedValue
-    private long id;
-    @Column(name = "member_id")
-    private long memberId;
-    @Column(name = "event_id")
-    private long eventId;
-    @Column(name = "session_id")
-    private long sessionId;
-    @Column(name = "account_id")
-    private long accountId;
-    @Column(name = "is_present")
-    private boolean isPresent;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "scanner_id")
+    private Scanner scanner;
     @Embedded
     AuditData auditData = new AuditData();
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public Scanner getScanner() {
+        return scanner;
+    }
+
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
+    }
 }

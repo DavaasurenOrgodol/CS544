@@ -4,10 +4,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.miu.common.controller.BaseReadWriteController;
-import edu.miu.cs.cs544.domain.Member;
-import edu.miu.cs.cs544.service.contract.MemberPayload;
+import edu.miu.cs.cs544.domain.Account;
+import edu.miu.cs.cs544.service.contract.AccountPayload;
 
 @RestController
-@RequestMapping("/members")
-public class MemberController extends BaseReadWriteController<MemberPayload, Member, Long> {
+@RequestMapping("/accounts")
+public class AccountController extends BaseReadWriteController<AccountPayload, Account, Long>{
 }

@@ -20,6 +20,10 @@ public class Account implements Serializable {
     private String name;
     @Column(nullable = false)
     private String description;
+    @Column(name = "dValue", nullable = false)
+    private double defaultValue = 10000;
+    @Column(name = "cValue", nullable = false)
+    private double currentValue;
     @Enumerated(EnumType.STRING)
     private AccountType type;
     @Embedded

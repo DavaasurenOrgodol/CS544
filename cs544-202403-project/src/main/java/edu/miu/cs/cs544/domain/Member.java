@@ -40,18 +40,5 @@ public class Member implements Serializable {
     @JoinColumn(name = "member_id")
     private List<Account> accounts = new ArrayList<>();
     @Embedded
-    AuditData auditData;
-
-    public Member(String firstName, String lastName, String email, String barCode) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.barCode = barCode;
-    }
-    public void addAccount(Account account){
-        accounts.add(account);
-    }
-    public void addRole(Role role){
-       this.role.add(role);
-    }
+    AuditData auditData = new AuditData();
 }

@@ -3,6 +3,7 @@ package edu.miu.cs.cs544.domain;
 import edu.miu.common.domain.AuditData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Role implements Serializable {
     @Id
     @GeneratedValue
@@ -22,7 +24,9 @@ public class Role implements Serializable {
     private String name;
     @Embedded
     AuditData auditData = new AuditData();
-    public Role(String name) {
-        this.name = name;
-    }
+
+    @ElementCollection(targetClass = AccountType.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "role_default_account_types", joinColumns = @JoinColumn(name = "role_id"))
+    Set<AccountType> defaultAccountTypes = new HashSet<>();
 }
