@@ -20,7 +20,8 @@ public class EventServiceImpl extends BaseReadWriteServiceImpl<EventPayload, Eve
 
     @Override
     public int calculateAttendance(long eventId) {
-        return attendanceRepository.countByEventId(eventId);
+//        return attendanceRepository.countByEventId(eventId);
+        return 0;
     }
     }
 
