@@ -14,10 +14,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/scanners")
 public class ScannerController extends BaseReadWriteController<ScannerPayload, Scanner, Long> {
-//    @GetMapping("scanners")
-//    public ResponseEntity<?> getAllScanners(){
-//        System.out.println("hello");
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
 
 }
