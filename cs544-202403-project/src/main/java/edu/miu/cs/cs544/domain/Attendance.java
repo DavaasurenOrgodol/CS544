@@ -23,6 +23,8 @@ public class Attendance implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "scanner_id")
     private Scanner scanner;
+    @Column(name = "date_time")
+    private LocalDateTime dateTime;
     @Embedded
     AuditData auditData = new AuditData();
 
