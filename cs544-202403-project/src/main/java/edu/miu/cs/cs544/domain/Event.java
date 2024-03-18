@@ -19,7 +19,7 @@ import java.util.List;
 public class Event implements Serializable {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
@@ -31,9 +31,11 @@ public class Event implements Serializable {
     private LocalDateTime startDateTime;
     @Column(name = "END_DATE_TIME",nullable = false)
     private LocalDateTime endDateTime;
+
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "evt_id")
     private Collection<Session> schedule = new ArrayList<>();
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "registration",
     joinColumns = {@JoinColumn(name = "evt_id")},
