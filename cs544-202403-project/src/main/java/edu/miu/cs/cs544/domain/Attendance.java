@@ -43,4 +43,10 @@ public class Attendance implements Serializable {
     public void setScanner(Scanner scanner) {
         this.scanner = scanner;
     }
+
+    public Attendance(Member member, Scanner scanner, LocalDateTime dateTime) {
+        this.member = member;
+        this.scanner = scanner;
+        this.dateTime = dateTime;
+    }
 }
