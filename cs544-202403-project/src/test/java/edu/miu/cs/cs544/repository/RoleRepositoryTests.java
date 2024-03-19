@@ -55,20 +55,22 @@ public class RoleRepositoryTests {
         member1.getRole().add(role1);
         member1.getRole().add(role2);
         member2.getRole().add(role2);
+
         memberRepository.saveAll(List.of(member1, member2));
+        entityManager.flush();
 
         roleRepository.deleteAllRoleRefsInMemberRole(List.of(role2.getId()));
         roleRepository.deleteById(role2.getId());
 
+        entityManager.flush();
         entityManager.clear();
 
         role1 = roleRepository.findById(role1.getId()).orElseThrow();
 
-
         member1 = memberRepository.findById(member1.getId()).orElseThrow();
         member2 = memberRepository.findById(member2.getId()).orElseThrow();
 
-        assert member1.getRole().size() == 1 && member1.getRole().contains(role1)
+        assert roleRepository.findById(role2.getId()).isEmpty() && member1.getRole().size() == 1 && member1.getRole().contains(role1)
                 && member2.getRole().isEmpty();
     }
 }
