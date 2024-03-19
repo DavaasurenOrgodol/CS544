@@ -34,4 +34,12 @@ public class Account implements Serializable {
         this.description = description;
         this.type = type;
     }
+
+    public void deposit(double amount){
+		currentValue += amount;
+	}
+
+	public void withdraw(double amount){
+		currentValue -= amount;
+	}
 }
