@@ -15,7 +15,7 @@ public interface AttendanceRepository extends BaseRepository<Attendance, Long> {
     List<Attendance> findAllRecordsByScannerCode(@Param("code") String code);
     @Query(value = "select a from Attendance a where a.scanner.event.id = :evtId")
     List<Attendance> findAllByEventId(@Param("evtId") String evtId);
-    @Query(value = "select a from Attendance a join fetch Member m join fetch Account acc where acc.id = :accountId and to_char(date_time,'yyyy-mm-dd') between :startDate and :endDate")
+    @Query(value = "select a from Attendance a join fetch Member m join fetch Account acc where acc.id = :accountId and to_char(dateTime,'yyyy-mm-dd') between :startDate and :endDate")
     List<Attendance> findAllByAccountId(@Param("accountId") String accountId, @Param("startDate") String startDate,@Param("endDate") String endDate);
     @Query(value = "select a from Attendance a where a.member.id = :memId and a.scanner.event.id = :evtId")
     List<Attendance> findAllByMemberIdAndEventId(@Param("memId") String memId, @Param("evtId") String evtId);
