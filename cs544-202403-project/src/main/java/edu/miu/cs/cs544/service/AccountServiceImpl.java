@@ -22,7 +22,7 @@ public class AccountServiceImpl extends BaseReadWriteServiceImpl<AccountPayload,
 	AttendanceRepository attendanceRepository;
 
 	@Override
-	public List<Account> findAccountsByBalanceCondition() {
+	public List<String> findAccountsByBalanceCondition() {
 		return accountRepository.findAccountsByBalanceCondition();
 	}
 
@@ -40,4 +40,3 @@ public class AccountServiceImpl extends BaseReadWriteServiceImpl<AccountPayload,
 
 	}
 }
-

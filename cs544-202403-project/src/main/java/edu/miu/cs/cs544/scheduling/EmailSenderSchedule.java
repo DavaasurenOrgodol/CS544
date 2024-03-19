@@ -25,11 +25,11 @@ public class EmailSenderSchedule {
     @Scheduled(cron = "0 0 10 * * ?")
     public void welcome() {
         System.out.println("hello");
-        List<Account> accounts = accountRepository.findAccountsByBalanceCondition();
-        for(Account account: accounts){
-//            Member member = memberRepository.Member
-            EmailPayload payload = new EmailPayload("dorgodol@miu.edu","hello");
-            kafkaSender.send("email",payload);
-        }
+//        List<Account> accounts = accountRepository.findAccountsByBalanceCondition();
+//        for(Account account: accounts){
+////            Member member = memberRepository.Member
+//            EmailPayload payload = new EmailPayload("dorgodol@miu.edu","hello");
+//            kafkaSender.send("email",payload);
+//        }
     }
 }
