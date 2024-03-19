@@ -8,14 +8,14 @@ import edu.miu.cs.cs544.dto.ErrorResponseDTO;
 import edu.miu.cs.cs544.repository.EventRepository;
 import edu.miu.cs.cs544.repository.SessionRepository;
 import edu.miu.cs.cs544.service.contract.SessionPayload;
-import edu.miu.cs.cs544.service.mapper.SessionPayloadToSessionMapper;
-import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -85,7 +85,6 @@ public class SessionServiceImpl extends BaseReadWriteServiceImpl<SessionPayload,
     }
 
     @Override
-    @Transactional
     public ResponseEntity<?> deleteSessionByEventIdAndSessionId(long eventId, long sessionId) {
         var optionalEvent = eventRepository.findById(eventId);
 
@@ -97,9 +96,11 @@ public class SessionServiceImpl extends BaseReadWriteServiceImpl<SessionPayload,
                 return new ResponseEntity<>(new ErrorResponseDTO(404, "Session Not found"), HttpStatus.NOT_FOUND);
 
             Session session = sessionOptional.get();
-            System.out.println(session);
 
-            sessionRepository.deleteAllByIdInBatch(List.of(session.getId()));
+            event.getSchedule().remove(session);
+            eventRepository.save(event);
+
+            sessionRepository.delete(session);
 
             return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
 
