@@ -4,6 +4,7 @@ import edu.miu.common.domain.AuditData;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -36,7 +37,7 @@ public class Member implements Serializable {
     joinColumns = {@JoinColumn(name = "member_id")},
     inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> role = new HashSet<>();
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private List<Account> accounts = new ArrayList<>();
     @Embedded
