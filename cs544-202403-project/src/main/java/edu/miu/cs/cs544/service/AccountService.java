@@ -7,5 +7,5 @@ import edu.miu.cs.cs544.service.contract.AttendancePayload;
 
 public interface AccountService extends BaseReadWriteService <AccountPayload, Account, Long>{
 	List<String> findAccountsByBalanceCondition();
-//	List<AttendancePayload> getAttendanceByAccountIdAndStartTimeAndEndTime(Long accountId, String startTime, String endTime);
+	List<AttendancePayload> getAttendanceByAccountIdAndStartTimeAndEndTime(Long accountId, String startTime, String endTime);
  }
