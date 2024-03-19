@@ -12,6 +12,6 @@ import edu.miu.cs.cs544.domain.Attendance;
 
 @Repository
 public interface AccountRepository extends BaseRepository<Account, Long> {
-    @Query(value = "select a from Account a where currentValue < defaultValue*0.05")
-    List<Account> findAccountsByBalanceCondition();
+    @Query(value = "select m.email from Account a, Member m where a.member_id = m.id and cvalue < dvalue*0.05", nativeQuery = true)
+    List<String> findAccountsByBalanceCondition();
 }
