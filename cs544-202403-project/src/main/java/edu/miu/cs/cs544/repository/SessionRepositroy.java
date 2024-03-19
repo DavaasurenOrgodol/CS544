@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SessionRepositroy extends BaseRepository<Session,Long> {
+
+   // Session getSessionsById(long sessionId );
 }
