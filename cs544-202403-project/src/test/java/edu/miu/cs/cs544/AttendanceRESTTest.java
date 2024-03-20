@@ -25,15 +25,8 @@ public class AttendanceRESTTest {
     }
     @Test
     public void testGetOneScannerRecord() {
-        Member member = new Member();
-        Location location = new Location("Dalby Hall","CS544 classroom", LocationType.CLASSROOM);
-        Event event = new Event("CS544","EA",AccountType.ATTENDANCE_POINTS, LocalDateTime.now(),LocalDateTime.of(2024,03,31,12,00));
-        Session session = new Session(LocalTime.of(12,30,00), LocalTime.of(12,30,00));
-        event.addSchedule(session);
-        event.addParticipant(member);
-        ScannerPayload scannerPayload = new ScannerPayload("01",new Location("Argiro","Dalby Hall", LocationType.CLASSROOM),AccountType.ATTENDANCE_POINTS,
-                new Event("CS544", "EA",AccountType.ATTENDANCE_POINTS, LocalDateTime.now(),LocalDateTime.now()));
-        Scanner scanner = new Scanner(location, AccountType.ATTENDANCE_POINTS,event);
+        Member member = new Member(1L,"Davaasuren","Orgodol","dorgodol@miue.edu","0903202024",null,null,null);
+        Scanner scanner = new Scanner(702L,"01",null, AccountType.ATTENDANCE_POINTS,null,null);
 
         AttendancePayload attendance = new AttendancePayload(member,scanner,LocalDateTime.now());
         Response response = given()
