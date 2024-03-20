@@ -2,11 +2,16 @@ package edu.miu.cs.cs544.service.contract;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import edu.miu.cs.cs544.domain.AccountType;
+import edu.miu.cs.cs544.domain.Member;
+import edu.miu.cs.cs544.domain.Session;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class EventPayload implements Serializable {
@@ -17,6 +22,8 @@ public class EventPayload implements Serializable {
     private AccountType accountType;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
+    private List<Session> schedule;
+    private List<Member> participants;
 
     public EventPayload(String name, String description, AccountType accountType, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         this.name = name;
@@ -25,4 +32,5 @@ public class EventPayload implements Serializable {
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
     }
+
 }
