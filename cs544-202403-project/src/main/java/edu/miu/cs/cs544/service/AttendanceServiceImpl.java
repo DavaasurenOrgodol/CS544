@@ -2,6 +2,7 @@ package edu.miu.cs.cs544.service;
 
 import edu.miu.common.service.BaseReadWriteServiceImpl;
 import edu.miu.cs.cs544.domain.Attendance;
+import edu.miu.cs.cs544.domain.Event;
 import edu.miu.cs.cs544.domain.Member;
 import edu.miu.cs.cs544.domain.Scanner;
 import edu.miu.cs.cs544.repository.AttendanceRepository;
@@ -27,7 +28,7 @@ public class AttendanceServiceImpl extends BaseReadWriteServiceImpl<AttendancePa
 //        Long scannerId = attendancePayload.getScanner().getId();
 //        String barCode = attendancePayload.getMember().getBarCode();
 //        Optional<Scanner> optionalScanner = scannerRepository.findById(scannerId);
-//        //findByBarCode
+////        //findByBarCode
 //        Optional<Member> optionalMember = memberRepository.findById(1L);
 //        if (optionalScanner.isPresent() && optionalMember.isPresent()) {
 //            Member member = optionalMember.get();

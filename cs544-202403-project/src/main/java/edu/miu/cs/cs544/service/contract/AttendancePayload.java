@@ -6,6 +6,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -19,6 +21,15 @@ public class AttendancePayload implements Serializable {
 
     public LocalDateTime getDateTime() {
         return dateTime;
+    }
+
+    public AttendancePayload(Member member, Scanner scanner, LocalDateTime dateTime) {
+        this.member = member;
+        this.scanner = scanner;
+        this.dateTime = dateTime;
+    }
+
+    public AttendancePayload() {
     }
 
     public void setDateTime(LocalDateTime dateTime) {
