@@ -35,6 +35,10 @@ public class Scanner implements Serializable {
         this.event = event;
     }
 
+    public long getId() {
+        return id;
+    }
+
     //    public void assignEvent(Event event){
 //        this.event = event;
 //    }

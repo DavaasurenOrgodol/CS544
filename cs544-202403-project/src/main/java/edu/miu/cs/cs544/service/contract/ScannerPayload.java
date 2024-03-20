@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Data
 public class ScannerPayload implements Serializable {
     private static final long serialVersionUID = 1L;
-    private long scannerId;
+    private long id;
     private String code;
     private Location location;
     private AccountType accountType;
@@ -21,5 +21,17 @@ public class ScannerPayload implements Serializable {
         this.location = location;
         this.accountType = accountType;
         this.event = event;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

@@ -1,12 +1,9 @@
 package edu.miu.cs.cs544.controller;
 
+import edu.miu.common.controller.BaseReadWriteController;
 import edu.miu.cs.cs544.domain.*;
-import edu.miu.cs.cs544.repository.AttendanceRepository;
-import edu.miu.cs.cs544.repository.MemberRepository;
-import edu.miu.cs.cs544.repository.ScannerRepository;
 import edu.miu.cs.cs544.service.AttendanceService;
 import edu.miu.cs.cs544.service.contract.AttendancePayload;
-import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 @RestController
 @RequestMapping("/attendances")
-public class AttendanceController {
+public class AttendanceController extends BaseReadWriteController<AttendancePayload, Attendance, Long> {
     @Autowired
     AttendanceService service;
     @PostMapping("/register")
