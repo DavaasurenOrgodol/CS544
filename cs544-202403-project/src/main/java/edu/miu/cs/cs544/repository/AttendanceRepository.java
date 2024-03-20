@@ -17,7 +17,7 @@ public interface AttendanceRepository extends BaseRepository<Attendance, Long> {
     @Query(value = "select a.* from attendance a, member m, account acc where a.member_id = m.id and m.id = acc.member_id and acc.id = :accountId and format(date_time,'yyyy-mm-dd') between :startDate and :endDate", nativeQuery = true)
     List<Attendance> findAllByAccountId(@Param("accountId") Long accountId, @Param("startDate") String startDate,@Param("endDate") String endDate);
     @Query(value = "select a from Attendance a where a.member.id = :memId and a.scanner.event.id = :evtId")
-    List<Attendance> findAllByMemberIdAndEventId(@Param("memId") String memId, @Param("evtId") String evtId);
+    List<Attendance> findAllByMemberIdAndEventId(@Param("memId") long memId, @Param("evtId") long evtId);
     @Query(value = "select a from Attendance a where a.member.id = :memId")
     List<Attendance> findAllByMemberId(@Param("memId") String memId);
 
