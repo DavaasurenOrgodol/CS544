@@ -21,4 +21,9 @@ public interface AttendanceRepository extends BaseRepository<Attendance, Long> {
     List<Attendance> findAllByMemberIdAndEventId(@Param("memId") String memId, @Param("evtId") String evtId);
     @Query(value = "select a from Attendance a where a.member.id = :memId")
     List<Attendance> findAllByMemberId(@Param("memId") String memId);
+
+    @Query("SELECT a FROM Attendance a WHERE a.member.id = :memberId")
+    List<Attendance> findAllByMemberId(@Param("memberId") Long memberId);
 }
+
+
