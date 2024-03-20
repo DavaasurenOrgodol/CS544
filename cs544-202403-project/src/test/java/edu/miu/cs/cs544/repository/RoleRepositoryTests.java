@@ -62,7 +62,7 @@ public class RoleRepositoryTests {
         roleRepository.deleteAllRoleRefsInMemberRole(List.of(role2.getId()));
         roleRepository.deleteById(role2.getId());
 
-        entityManager.flush();
+        roleRepository.flush();
         entityManager.clear();
 
         role1 = roleRepository.findById(role1.getId()).orElseThrow();
