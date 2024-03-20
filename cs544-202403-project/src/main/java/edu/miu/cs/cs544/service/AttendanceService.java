@@ -5,6 +5,6 @@ import edu.miu.cs.cs544.domain.Attendance;
 import edu.miu.cs.cs544.service.contract.AttendancePayload;
 
 public interface AttendanceService  extends BaseReadWriteService<AttendancePayload, Attendance, Long> {
-    void attendance(AttendancePayload attendancePayload);
+    void attendance(AttendancePayload attendancePayload) throws Exception;
 }
 
