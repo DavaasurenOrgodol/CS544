@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,16 +28,15 @@ public class RoleRepositoryTests {
     private TestEntityManager entityManager;
 
     private Member createTestMember(
-            long id,
+            String barCode,
             String firstName,
             String lasName
     ){
         return new Member(
-                id,
                 firstName,
                 lasName,
                 firstName + lasName + "@gmail.com",
-                String.valueOf(id),
+                barCode,
                 new HashSet<>(),
                 new ArrayList<>(),
                 new AuditData()
@@ -44,9 +44,10 @@ public class RoleRepositoryTests {
     }
 
     @Test
+    @Transactional
     public void whenDeleteRoleRefsFromMemberRoleAndThenDelete(){
-        var member1 = createTestMember(1L, "Kerim", "Amansaryyev");
-        var member2 = createTestMember(2L, "Nazar", "Amanov");
+        var member1 = createTestMember("b1", "Kerim", "Amansaryyev");
+        var member2 = createTestMember("b2", "Nazar", "Amanov");
         var role1 = new Role(1L, "admin", new AuditData(), new HashSet<>());
         final var role2 = new Role(2L, "student", new AuditData(), new HashSet<>());
 
@@ -56,7 +57,12 @@ public class RoleRepositoryTests {
         member1.getRole().add(role2);
         member2.getRole().add(role2);
 
-        memberRepository.saveAll(List.of(member1, member2));
+
+        member1 = memberRepository.save(member1);
+        member2 = memberRepository.save(member2);
+
+        memberRepository.flush();
+
         entityManager.flush();
 
         roleRepository.deleteAllRoleRefsInMemberRole(List.of(role2.getId()));

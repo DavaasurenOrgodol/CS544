@@ -28,7 +28,7 @@ public class Member implements Serializable {
     @Column(nullable = false)
     @Email
     private String email;
-    @Column(name = "BAR_CODE",nullable = false)
+    @Column(name = "BAR_CODE",nullable = false, unique = true)
     @Lob
     private String barCode;
     @ManyToMany(fetch = FetchType.EAGER)
@@ -41,4 +41,14 @@ public class Member implements Serializable {
     private List<Account> accounts = new ArrayList<>();
     @Embedded
     AuditData auditData = new AuditData();
+
+    public Member(String firstName, String lastName, String email, String barCode, Set<Role> role, List<Account> accounts, AuditData auditData) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.barCode = barCode;
+        this.role = role;
+        this.accounts = accounts;
+        this.auditData = auditData;
+    }
 }
