@@ -16,8 +16,45 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/events")
-public class EventController extends BaseReadWriteController<EventPayload, Event, Long>{
+public class EventController extends BaseReadWriteController<EventPayload, Event, Long> {
 
+//    private final AttendanceServiceImpl attendanceService;
+//    public EventController(AttendanceServiceImpl attendanceService) {
+//        this.attendanceService = attendanceService;
+//    }
+//
+//    @GetMapping("/{eventId}/attendance")
+//    public int getAttendance(@PathVariable long eventId) {
+//        return attendanceService.calculateAttendance(eventId);
+//    }
+
+
+    @Autowired
+    SessionService sessionService;
+
+    @PostMapping("{eventId}/sessions")
+    public ResponseEntity<?> createSessionByEventId(@PathVariable long eventId, @RequestBody Session session) {
+        return sessionService.createSessionByEventId(session, eventId);
+    }
+
+    @GetMapping("{eventId}/sessions")
+    public ResponseEntity<?> findSessionsByEventId(@PathVariable long eventId) {
+        return sessionService.findSessionsByEventId(eventId);
+    }
+
+    @PutMapping("{eventId}/sessions/{sessionId}")
+    public ResponseEntity<?> UpdateSession(@PathVariable long eventId,
+                                           @PathVariable long sessionId,
+                                           @RequestBody SessionPayload sessionPayload)
+    {
+        return sessionService.updateSessionByEventIdAndSessionId(eventId,sessionId,sessionPayload);
+    }
+
+    @DeleteMapping("{eventId}/sessions/{sessionId}")
+    public ResponseEntity<?> deleteSessionById(@PathVariable long eventId,
+                                            @PathVariable long sessionId) {
+        return sessionService.deleteSessionByEventIdAndSessionId(eventId,sessionId);
+    }
     private final EventService eventService;
     public EventController(EventService eventService) {
         this.eventService = eventService;
