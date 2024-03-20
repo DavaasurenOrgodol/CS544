@@ -35,6 +35,14 @@ public class Account implements Serializable {
         this.type = type;
     }
 
+    public Account(String name, String description, AccountType type, Double defaultValue, Double currentValue ) {
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.defaultValue = defaultValue;
+        this.currentValue = currentValue;
+    }
+
     public void deposit(double amount){
 		currentValue += amount;
 	}
