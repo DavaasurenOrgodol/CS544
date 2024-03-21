@@ -21,8 +21,13 @@ import java.util.*;
 @Service
 public class EventServiceImpl extends BaseReadWriteServiceImpl<EventPayload, Event, Long> implements EventService {
 
-    private final EventRepository eventRepository;
-    private final AttendanceRepository attendanceRepository;
+    @Autowired
+    EventRepository eventRepository;
+
+    @Autowired
+    MemberRepository memberRepository;
+    @Autowired
+    AttendanceRepository attendanceRepository;
 
     public EventServiceImpl(EventRepository eventRepository, AttendanceRepository attendanceRepository) {
         this.eventRepository = eventRepository;
@@ -48,12 +53,6 @@ public class EventServiceImpl extends BaseReadWriteServiceImpl<EventPayload, Eve
         return attendanceMap;
     }
 
-    @Autowired
-    EventRepository eventRepository;
-
-    @Autowired
-    MemberRepository memberRepository;
-
     @Override
     public ResponseEntity<?> registerMember(long eventId, long memberId) {
         var optionalEvent = eventRepository.findById(eventId);
@@ -72,7 +71,6 @@ public class EventServiceImpl extends BaseReadWriteServiceImpl<EventPayload, Eve
         return new ResponseEntity<>(event, HttpStatus.NOT_FOUND);
 
     }
-}
 
 }
 
