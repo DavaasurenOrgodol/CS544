@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class AttendanceRepositoryTests {
         testEntityManager.persist(member);
         testEntityManager.flush();
         Event event = new Event("CS544","EA",AccountType.ATTENDANCE_POINTS, LocalDateTime.now(),LocalDateTime.of(2024,03,31,12,00));
-        Session session = new Session(LocalTime.of(12,30,00), LocalTime.of(12,30,00));
+        Session session = new Session(LocalTime.of(12,30,00), LocalTime.of(12,30,00), LocalDate.now());
         event.addSchedule(session);
         event.addParticipant(member);
         testEntityManager.persist(event);
