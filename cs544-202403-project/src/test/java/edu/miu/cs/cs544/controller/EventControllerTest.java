@@ -36,9 +36,6 @@ public class EventControllerTest {
         when(eventService.calculateAttendance(eventId)).thenReturn(expectedAttendanceMap);
 
         ResponseEntity<Map<Member, List<Attendance>>> responseEntity = eventController.calculateAttendance(eventId);
-        // Act
-        ResponseEntity<Map<Member, List<Attendance>>> responseEntity = eventController.calculateAttendance(eventId);
-
         // Assert
         assertSame(HttpStatus.OK, responseEntity.getStatusCode());
         assertSame(expectedAttendanceMap, responseEntity.getBody());
