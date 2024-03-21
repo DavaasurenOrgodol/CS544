@@ -21,16 +21,6 @@ import java.util.Map;
 @RequestMapping("/events")
 public class EventController extends BaseReadWriteController<EventPayload, Event, Long> {
 
-//    private final AttendanceServiceImpl attendanceService;
-//    public EventController(AttendanceServiceImpl attendanceService) {
-//        this.attendanceService = attendanceService;
-//    }
-//
-//    @GetMapping("/{eventId}/attendance")
-//    public int getAttendance(@PathVariable long eventId) {
-//        return attendanceService.calculateAttendance(eventId);
-//    }
-
 
     @Autowired
     SessionService sessionService;
@@ -68,6 +58,14 @@ public class EventController extends BaseReadWriteController<EventPayload, Event
     public ResponseEntity<Map<Member, List<Attendance>>> calculateAttendance(@PathVariable Long eventId) {
         Map<Member, List<Attendance>> attendanceMap = eventService.calculateAttendance(eventId);
         return ResponseEntity.ok(attendanceMap);
+    }
+
+    @PostMapping("/{eventId}/members/{memberId}/register-for-event")
+    public ResponseEntity<?> registerForEvent(@PathVariable long eventId,
+                                              @PathVariable long memberId
+    )
+    {
+        return eventService.registerMember(eventId,memberId);
     }
 }
 
