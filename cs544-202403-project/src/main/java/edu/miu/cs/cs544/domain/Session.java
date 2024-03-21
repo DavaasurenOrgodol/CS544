@@ -31,8 +31,9 @@ public class Session implements Serializable {
     @Embedded
     AuditData auditData = new AuditData();
 
-    public Session(LocalTime startTime, LocalTime endTime) {
+    public Session(LocalTime startTime, LocalTime endTime, LocalDate date) {
         this.startTime = startTime;
         this.endTime = endTime;
+        this.date = date;
     }
 }
