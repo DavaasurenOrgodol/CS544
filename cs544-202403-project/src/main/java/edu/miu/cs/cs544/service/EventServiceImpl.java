@@ -32,6 +32,7 @@ public class EventServiceImpl extends BaseReadWriteServiceImpl<EventPayload, Eve
             return new HashMap<>();
         }
 
+
         Map<Member, List<Attendance>> attendanceMap = new HashMap<>();
 
         for (Member member : event.getParticipants()) {
