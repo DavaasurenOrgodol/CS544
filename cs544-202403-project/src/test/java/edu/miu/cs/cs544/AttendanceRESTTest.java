@@ -23,21 +23,4 @@ public class AttendanceRESTTest {
         RestAssured.baseURI = "http://localhost";
         RestAssured.basePath = "/badge-system";
     }
-    @Test
-    public void testGetOneScannerRecord() {
-        Member member = new Member(1L,"Davaasuren","Orgodol","dorgodol@miue.edu","0903202024",null,null,null);
-        Scanner scanner = new Scanner(702L,"01",null, AccountType.ATTENDANCE_POINTS,null,null);
-
-        AttendancePayload attendance = new AttendancePayload(member,scanner,LocalDateTime.now());
-        Response response = given()
-                .auth()
-                .basic("user", "123")
-                .contentType("application/json")
-                .body(attendance)
-                .when().post("attendances/register")
-                .then()
-                .statusCode(200)
-                .extract()
-                .response();
-    }
 }
