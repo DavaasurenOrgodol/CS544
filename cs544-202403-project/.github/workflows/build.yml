@@ -1,7 +1,7 @@
 name: Build and Deploy Service
 on:
   push:
-    branches: [ "devops" ]
+    branches: [ "test_ci" ]
   workflow_dispatch:
  
 jobs:
