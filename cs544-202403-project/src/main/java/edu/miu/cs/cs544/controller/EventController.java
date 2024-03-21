@@ -21,16 +21,6 @@ import java.util.Map;
 @RequestMapping("/events")
 public class EventController extends BaseReadWriteController<EventPayload, Event, Long> {
 
-//    private final AttendanceServiceImpl attendanceService;
-//    public EventController(AttendanceServiceImpl attendanceService) {
-//        this.attendanceService = attendanceService;
-//    }
-//
-//    @GetMapping("/{eventId}/attendance")
-//    public int getAttendance(@PathVariable long eventId) {
-//        return attendanceService.calculateAttendance(eventId);
-//    }
-
 
     @Autowired
     SessionService sessionService;

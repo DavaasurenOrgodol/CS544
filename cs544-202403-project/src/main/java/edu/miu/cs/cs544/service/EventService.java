@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface EventService extends BaseReadWriteService <EventPayload, Event, Long>{
-//    List<Attendance> calculateAttendance(Long eventId);
+
  Map<Member, List<Attendance>> calculateAttendance(Long eventId);
 
 }
