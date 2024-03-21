@@ -1,0 +1,25 @@
+name: Build and Deploy Service
+on:
+  push:
+    branches: [ "devops" ]
+  workflow_dispatch:
+ 
+jobs:
+  build:
+ 
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 21
+      uses: actions/setup-java@v3
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: maven
+ 
+    - name: Build Common with Maven
+      run: mvn -B install --file ./common-base-module/pom.xml
+ 
+    - name: Build Project with Maven
+      run: mvn -B install --file ./cs544-202403-project/pom.xml -DskipTests
