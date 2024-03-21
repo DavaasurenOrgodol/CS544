@@ -22,4 +22,9 @@ public class AttendanceController extends BaseReadWriteController<AttendancePayl
                                                        @PathVariable long eventId){
         return attendanceService.attendanceByMemberByEvent(memberId, eventId);
     }
+
+    @GetMapping("members/{memberId}/attendance")
+    public ResponseEntity<?> attendanceByMemberByAccountType(@PathVariable long memberId){
+        return attendanceService.attendanceByMemberByAccountType(memberId);
+    }
 }

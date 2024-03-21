@@ -12,5 +12,6 @@ public interface AttendanceService  extends BaseReadWriteService<AttendancePaylo
     ResponseEntity<?> attendanceByMemberByEvent(@PathVariable long memberId,
                                                 @PathVariable long eventId);
 
+    ResponseEntity<?> attendanceByMemberByAccountType(@PathVariable long memberId);
 }
 
