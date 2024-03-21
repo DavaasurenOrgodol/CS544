@@ -28,4 +28,11 @@ public class Scanner implements Serializable {
     private Event event;
     @Embedded
     AuditData auditData = new AuditData();
+
+    public Scanner(String code, Location location, AccountType accountType, Event event) {
+        this.code = code;
+        this.location = location;
+        this.accountType = accountType;
+        this.event = event;
+    }
 }
