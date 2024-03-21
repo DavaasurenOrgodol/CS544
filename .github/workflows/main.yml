@@ -1,7 +1,7 @@
 name: Build and Deploy Service
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "test_ci_git" ]
   workflow_dispatch:
  
 jobs:
@@ -22,4 +22,4 @@ jobs:
       run: mvn -B install --file ./common-base-module/pom.xml
  
     - name: Build Project with Maven
-      run: mvn -B install --file ./cs544-202403-project/pom.xml -DskipTests
+      run: mvn -B install --file ./cs544-202403-project/pom.xml
