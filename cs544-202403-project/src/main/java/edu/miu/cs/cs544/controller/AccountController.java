@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import edu.miu.cs.cs544.dto.AttendanceListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,8 @@ public class AccountController extends BaseReadWriteController<AccountPayload, A
 
 	@GetMapping("/{accountId}/attendance/{startTime}/{endTime}")
 	public ResponseEntity<?> getAttendanceByAccountTypeAndStartTimeAndEndTime(@PathVariable Long accountId, @PathVariable String startTime, @PathVariable String endTime) {
-		List<AttendancePayload> attendacePayloadList = accountService.getAttendanceByAccountIdAndStartTimeAndEndTime(accountId, startTime, endTime);
-		Map<Long, List<AttendancePayload>> map = new HashMap<Long, List<AttendancePayload>>();
+		List<AttendanceListDTO> attendacePayloadList = accountService.getAttendanceByAccountIdAndStartTimeAndEndTime(accountId, startTime, endTime);
+		Map<Long, List<AttendanceListDTO>> map = new HashMap<Long, List<AttendanceListDTO>>();
 		map.put(accountId, attendacePayloadList);
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
