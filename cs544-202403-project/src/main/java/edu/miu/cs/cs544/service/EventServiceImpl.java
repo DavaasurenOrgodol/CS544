@@ -21,21 +21,28 @@ import java.util.*;
 @Service
 public class EventServiceImpl extends BaseReadWriteServiceImpl<EventPayload, Event, Long> implements EventService {
 
+    private final EventRepository eventRepository;
     private final AttendanceRepository attendanceRepository;
 
-    public EventServiceImpl(AttendanceRepository attendanceRepository) {
+    public EventServiceImpl(EventRepository eventRepository, AttendanceRepository attendanceRepository) {
+        this.eventRepository = eventRepository;
         this.attendanceRepository = attendanceRepository;
     }
 
     @Override
     public Map<Member, List<Attendance>> calculateAttendance(Long eventId) {
-        List<Attendance> allAttendance = attendanceRepository.findAll();
+        Event event = eventRepository.findById(eventId).orElse(null);
+
+        if (event == null) {
+            return new HashMap<>();
+        }
+
+
         Map<Member, List<Attendance>> attendanceMap = new HashMap<>();
 
-        // Filter attendance records based on eventId
-        for (Attendance attendance : allAttendance) {
-            // Add the attendance record to the corresponding member's list
-            attendanceMap.computeIfAbsent(attendance.getMember(), k -> new ArrayList<>()).add(attendance);
+        for (Member member : event.getParticipants()) {
+            List<Attendance> memberAttendance = attendanceRepository.findAllByMemberId(member.getId());
+            attendanceMap.put(member, memberAttendance);
         }
 
         return attendanceMap;
@@ -67,6 +74,7 @@ public class EventServiceImpl extends BaseReadWriteServiceImpl<EventPayload, Eve
     }
 }
 
+}
 
 
 

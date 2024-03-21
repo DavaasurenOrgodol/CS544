@@ -29,13 +29,13 @@ public class EventControllerTest {
 
     @Test
     void calculateAttendance_ReturnsAttendanceMap() {
-        // Arrange
         Long eventId = 1L;
         Map<Member, List<Attendance>> expectedAttendanceMap = Collections.singletonMap(
                 new Member(), Collections.singletonList(new Attendance())
         );
         when(eventService.calculateAttendance(eventId)).thenReturn(expectedAttendanceMap);
 
+        ResponseEntity<Map<Member, List<Attendance>>> responseEntity = eventController.calculateAttendance(eventId);
         // Act
         ResponseEntity<Map<Member, List<Attendance>>> responseEntity = eventController.calculateAttendance(eventId);
 
