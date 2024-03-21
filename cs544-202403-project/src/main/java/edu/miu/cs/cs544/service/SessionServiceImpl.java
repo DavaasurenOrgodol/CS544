@@ -8,6 +8,7 @@ import edu.miu.cs.cs544.dto.ErrorResponseDTO;
 import edu.miu.cs.cs544.repository.EventRepository;
 import edu.miu.cs.cs544.repository.SessionRepository;
 import edu.miu.cs.cs544.service.contract.SessionPayload;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class SessionServiceImpl extends BaseReadWriteServiceImpl<SessionPayload, Session, Long> implements SessionService {
 
     @Autowired
@@ -30,8 +32,7 @@ public class SessionServiceImpl extends BaseReadWriteServiceImpl<SessionPayload,
     @Autowired
     SessionRepository sessionRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+
 
     @Override
     public ResponseEntity<?> createSessionByEventId(Session session, long eventId) {
@@ -73,7 +74,6 @@ public class SessionServiceImpl extends BaseReadWriteServiceImpl<SessionPayload,
 
             Session session = sessionOptional.get();
 
-            modelMapper.map(sessionPayload, session);
             sessionRepository.save(session);
 
             return new ResponseEntity<>(session, HttpStatus.OK);
