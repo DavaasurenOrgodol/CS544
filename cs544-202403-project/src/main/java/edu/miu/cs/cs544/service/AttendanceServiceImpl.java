@@ -2,6 +2,7 @@ package edu.miu.cs.cs544.service;
 
 import edu.miu.common.service.BaseReadWriteServiceImpl;
 import edu.miu.cs.cs544.domain.*;
+import edu.miu.cs.cs544.domain.Scanner;
 import edu.miu.cs.cs544.dto.AttendanceListDTO;
 import edu.miu.cs.cs544.dto.ErrorResponseDTO;
 import edu.miu.cs.cs544.repository.AttendanceRepository;
@@ -14,11 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class AttendanceServiceImpl extends BaseReadWriteServiceImpl<AttendancePayload, Attendance, Long> implements AttendanceService {
@@ -82,13 +79,13 @@ public class AttendanceServiceImpl extends BaseReadWriteServiceImpl<AttendancePa
     @Override
     public ResponseEntity<?> attendanceByMemberByEvent(long memberId, long eventId) {
         //Getting events
-        var optionalEvent =eventRepository.findById(eventId);
-        if(optionalEvent.isEmpty())
+        var optionalEvent = eventRepository.findById(eventId);
+        if (optionalEvent.isEmpty())
             return new ResponseEntity<>(new ErrorResponseDTO(404, "Event not found "), HttpStatus.NOT_FOUND);
 
         //Getting members
-        var optionalMember =memberRepository.findById(memberId);
-        if(optionalMember.isEmpty())
+        var optionalMember = memberRepository.findById(memberId);
+        if (optionalMember.isEmpty())
             return new ResponseEntity<>(new ErrorResponseDTO(404, "Member not found "), HttpStatus.NOT_FOUND);
 
         var memberName = optionalMember.get().getFirstName();
@@ -99,18 +96,17 @@ public class AttendanceServiceImpl extends BaseReadWriteServiceImpl<AttendancePa
         List<Attendance> attendances = attendanceRepository.findAllByMemberIdAndEventId(memberId, eventId);
         List<AttendanceListDTO> attendanceListDTOS = new ArrayList<>();
 
-        for (Session session : sessions ) {
+        for (Session session : sessions) {
 
             var sessionDate = session.getDate();
             boolean attended = false;
             for (Attendance attendance : attendances) {
                 var attendanceDate = attendance.getDateTime().toLocalDate();
-                if(attendanceDate.isEqual(sessionDate)){
+                if (attendanceDate.isEqual(sessionDate)) {
                     attended = true;
                     break;
                 }
             }
-
 
 
             attendanceListDTOS.add(new AttendanceListDTO(
@@ -120,6 +116,65 @@ public class AttendanceServiceImpl extends BaseReadWriteServiceImpl<AttendancePa
             );
         }
 
-        return new ResponseEntity<>(attendanceListDTOS,HttpStatus.OK);
+        return new ResponseEntity<>(attendanceListDTOS, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> attendanceByMemberByAccountType(long memberId) {
+        //Getting members
+        var optionalMember = memberRepository.findById(memberId);
+        if (optionalMember.isEmpty())
+            return new ResponseEntity<>(new ErrorResponseDTO(404, "Member not found "), HttpStatus.NOT_FOUND);
+        var memberName = optionalMember.get().getFirstName();
+
+        var attendanceList = attendanceRepository.findAllByMemberId(memberId);
+
+        HashMap<AccountType, Event> accountTypeEventHashMap = new HashMap<>();
+
+        for (Attendance attendance : attendanceList) {
+            accountTypeEventHashMap.put(attendance.getScanner().getAccountType(),attendance.getScanner().getEvent());
+        }
+
+        HashMap<AccountType, List<Attendance>> map2 = new HashMap<>();
+        for (Attendance attendance : attendanceList) {
+            var accountType = attendance.getScanner().getAccountType();
+            map2.computeIfAbsent(accountType, k -> new ArrayList<>());
+            map2.get(accountType).add(attendance);
+        }
+
+
+        HashMap<AccountType, List<AttendanceListDTO>> resultMap = new HashMap<>();
+
+
+        for (Map.Entry<AccountType, Event> entry : accountTypeEventHashMap.entrySet()) {
+
+            var accountType = entry.getKey();
+            var value = entry.getValue();
+            var sessions = value.getSchedule();
+
+            for (Session session : sessions) {
+
+                var sessionDate = session.getDate();
+                boolean attended = false;
+
+                for (Attendance attendance : map2.get(accountType)) {
+                    var attendanceDate = attendance.getDateTime().toLocalDate();
+                    if (attendanceDate.isEqual(sessionDate)) {
+                        attended = true;
+                        break;
+                    }
+                }
+
+                resultMap.computeIfAbsent(accountType, k -> new ArrayList<>());
+                resultMap.get(accountType).add(new AttendanceListDTO(
+                        memberName,
+                        sessionDate,
+                        attended)
+                );
+            }
+        }
+
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+
     }
 }
