@@ -17,7 +17,7 @@ public class AttendanceController extends BaseReadWriteController<AttendancePayl
         return attendanceService.scan(attendancePayload);
     }
 
-    @PostMapping("members/{memberId}/events/{eventId}/attendance")
+    @GetMapping("members/{memberId}/events/{eventId}/attendance")
     public ResponseEntity<?> attendanceByMemberByEvent(@PathVariable long memberId,
                                                        @PathVariable long eventId){
         return attendanceService.attendanceByMemberByEvent(memberId, eventId);

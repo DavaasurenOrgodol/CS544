@@ -91,6 +91,11 @@ public class AttendanceServiceImpl extends BaseReadWriteServiceImpl<AttendancePa
         var memberName = optionalMember.get().getFirstName();
 
         var event = optionalEvent.get();
+
+        if(!event.getParticipants().contains(optionalMember.get()))
+            return new ResponseEntity<>(new ErrorResponseDTO(404, "Member is not registered for event"), HttpStatus.NOT_FOUND);
+
+
         Collection<Session> sessions = event.getSchedule();
 
         List<Attendance> attendances = attendanceRepository.findAllByMemberIdAndEventId(memberId, eventId);
