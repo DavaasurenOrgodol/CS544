@@ -25,8 +25,8 @@ public class ScannerRESTTest {
     @Test
     public void testCRUD() {
         //test adding the scanner
-        ScannerPayload scannerPayload = new ScannerPayload("01",new Location("Argiro","Dalby Hall", LocationType.CLASSROOM),AccountType.ATTENDANCE_POINTS,
-                new Event("CS544", "EA",AccountType.ATTENDANCE_POINTS, LocalDateTime.now(),LocalDateTime.now()));
+        ScannerPayload scannerPayload = new ScannerPayload("01",null,AccountType.ATTENDANCE_POINTS,
+                null);
         Response response = given()
                 .auth()
                 .basic("user", "123")
