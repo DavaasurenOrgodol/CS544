@@ -1,7 +1,7 @@
 name: Build and Deploy Service
 on:
   push:
-    branches: [ "devops" ]
+    branches: [ "main" ]
   workflow_dispatch:
  
 jobs:
