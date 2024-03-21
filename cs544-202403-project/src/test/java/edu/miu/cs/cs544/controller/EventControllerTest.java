@@ -29,7 +29,6 @@ public class EventControllerTest {
 
     @Test
     void calculateAttendance_ReturnsAttendanceMap() {
-
         Long eventId = 1L;
         Map<Member, List<Attendance>> expectedAttendanceMap = Collections.singletonMap(
                 new Member(), Collections.singletonList(new Attendance())
@@ -37,8 +36,10 @@ public class EventControllerTest {
         when(eventService.calculateAttendance(eventId)).thenReturn(expectedAttendanceMap);
 
         ResponseEntity<Map<Member, List<Attendance>>> responseEntity = eventController.calculateAttendance(eventId);
+        // Act
+        ResponseEntity<Map<Member, List<Attendance>>> responseEntity = eventController.calculateAttendance(eventId);
 
-
+        // Assert
         assertSame(HttpStatus.OK, responseEntity.getStatusCode());
         assertSame(expectedAttendanceMap, responseEntity.getBody());
     }

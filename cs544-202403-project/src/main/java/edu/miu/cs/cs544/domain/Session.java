@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
@@ -23,6 +25,8 @@ public class Session implements Serializable {
     private LocalTime startTime;
     @Column(name = "end_time")
     private LocalTime endTime;
+    @Column(name = "session_date")
+    private LocalDate date;
 
     @Embedded
     AuditData auditData = new AuditData();

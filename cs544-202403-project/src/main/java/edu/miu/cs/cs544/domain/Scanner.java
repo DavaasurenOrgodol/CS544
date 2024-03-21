@@ -17,13 +17,13 @@ public class Scanner implements Serializable {
     @GeneratedValue
     private long id;
     private String code;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
     @Column(name = "ACCOUNT_TYPE")
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne
     @JoinColumn(name = "evt_id")
     private Event event;
     @Embedded

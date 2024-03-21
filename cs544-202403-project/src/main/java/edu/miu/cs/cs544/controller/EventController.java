@@ -59,6 +59,14 @@ public class EventController extends BaseReadWriteController<EventPayload, Event
         Map<Member, List<Attendance>> attendanceMap = eventService.calculateAttendance(eventId);
         return ResponseEntity.ok(attendanceMap);
     }
+
+    @PostMapping("/{eventId}/members/{memberId}/register-for-event")
+    public ResponseEntity<?> registerForEvent(@PathVariable long eventId,
+                                              @PathVariable long memberId
+    )
+    {
+        return eventService.registerMember(eventId,memberId);
+    }
 }
 
 
