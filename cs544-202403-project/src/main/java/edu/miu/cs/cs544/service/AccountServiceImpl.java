@@ -1,11 +1,9 @@
 package edu.miu.cs.cs544.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
+import edu.miu.common.exception.ResourceNotFoundException;
 import edu.miu.cs.cs544.domain.Event;
 import edu.miu.cs.cs544.domain.Session;
 import edu.miu.cs.cs544.dto.AttendanceListDTO;
@@ -39,18 +37,18 @@ public class AccountServiceImpl extends BaseReadWriteServiceImpl<AccountPayload,
 		return accountRepository.findAccountsByBalanceCondition();
 	}
 
-	public List<AttendanceListDTO> getAttendanceByAccountIdAndStartTimeAndEndTime(Long accountId, String startTime, String endTime) {
+	public List<AttendanceListDTO> getAttendanceByAccountIdAndStartTimeAndEndTime(Long accountId, String startTime, String endTime) throws Exception {
 		Optional<Account> acc = accountRepository.findById(accountId);
 		String memberName;
 		if (acc.isPresent()) {
 			memberName = acc.get().getName();
 		} else {
-			memberName = "Unknown";
+			throw new Exception("Could not find the account with id " + accountId);
 		}
 		List<Attendance> attendanceList = attendanceRepository.findAllByAccountId(accountId, startTime, endTime);
 
 		// Get list of events
-		List<Event> events = new ArrayList<Event>();
+		Set<Event> events = new HashSet<Event>();
 		attendanceList.forEach(a -> {
 			events.add(a.getScanner().getEvent());
 		});
