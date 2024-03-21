@@ -24,6 +24,7 @@ public class ScannerServiceImpl extends BaseReadWriteServiceImpl<ScannerPayload,
         List<AttendancePayload> attendancePayloads = new ArrayList<>();
         for(Attendance attendance : attendances){
             AttendancePayload payload = new AttendancePayload();
+            payload.setId(attendance.getId());
             payload.setScanner(attendance.getScanner());
             payload.setMember(attendance.getMember());
             attendancePayloads.add(payload);
